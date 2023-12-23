@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Tree Model Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4; /* Light gray background */
+}
+
+.login {
+    width: 80%;
+    max-width: 400px;
+    padding: 20px; /* Increased padding for better spacing */
+    border: 1px solid #ddd; /* Softer border color */
+    border-radius: 10px;
+    margin: auto;
+    text-align: center;
+    background-color: #fff; /* White background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+}
+
+h1 {
+    color: #333; /* Dark text color */
+    margin-bottom: 20px;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 15px; /* Increased margin for better separation */
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc; /* Light border color */
+    border-radius: 5px;
+}
+
+.form-check-label {
+    margin-bottom: 10px; /* Increased margin for better spacing */
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff; /* Primary blue color */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+}
+    </style>
+</head>
+
+<body>
+    <div class="login">
+        <h1>Cardiovascular Disease Prediction</h1>
+
+        <!-- Main Input For Receiving Query to our ML -->
+        <form action="{{ url_for('predict')}}" method="post">
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" name="gender" required>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="height">Height</label>
+                <input type="text" class="form-control" name="height" placeholder="Height" required>
+            </div>
+
+            <div class="form-group">
+                <label for="weight">Weight</label>
+                <input type="text" class="form-control" name="weight" placeholder="Weight" required>
+            </div>
+
+            <!-- ... (repeat for other form groups) ... -->
+
+            <div class="form-group">
+              <label for="bp_high">High Blood Pressure</label>
+              <input type="text" class="form-control" name="bp_high" placeholder="High Blood Pressure" required>
+          </div>
+      
+          <div class="form-group">
+              <label for="bp_low">Low Blood Pressure</label>
+              <input type="text" class="form-control" name="bp_low" placeholder="Low Blood Pressure" required>
+          </div>
+      
+          <div class="form-group">
+              <label for="cholesterol">Cholesterol</label>
+              <input type="text" class="form-control" name="cholesterol" placeholder="Cholesterol" required>
+          </div>
+      
+          <div class="form-group">
+              <label for="glucose">Glucose</label>
+              <input type="text" class="form-control" name="glucose" placeholder="Glucose" required>
+          </div>
+      
+          <div class="form-group">
+              <label>Smoker</label>
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="smoker" id="smokerYes" value="1" required>
+                  <label class="form-check-label" for="smokerYes">Yes</label>
+              </div>
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="smoker" id="smokerNo" value="0" required>
+                  <label class="form-check-label" for="smokerNo">No</label>
+              </div>
+          </div>
+      
+          <div class="form-group">
+            <label>Alcohol Consumption</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="alcohol" id="alcoholYes" value="1" required>
+                <label class="form-check-label" for="alcoholYes">Yes</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="alcohol" id="alcoholNo" value="0" required>
+                <label class="form-check-label" for="alcoholNo">No</label>
+            </div>
+        </div>
+      
+          <div class="form-group">
+              <label>Active</label>
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="active" id="activeYes" value="1" required>
+                  <label class="form-check-label" for="activeYes">Yes</label>
+              </div>
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="active" id="activeNo" value="0" required>
+                  <label class="form-check-label" for="activeNo">No</label>
+              </div>
+          </div>
+
+            <!-- ... (repeat for other form groups) ... -->
+
+
+            <div class="form-group">
+                <label for="age_years">Age (Years)</label>
+                <input type="text" class="form-control" name="age_years" placeholder="Age (Years)" required>
+            </div>
+
+            <div class="form-group">
+                <label for="bmi">BMI</label>
+                <input type="text" class="form-control" name="bmi" placeholder="BMI" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-large">Predict</button>
+        </form>
+
+        <br>
+        <br>
+        {{ prediction_text }}
+        
+    </div>
+</body>
+
+</html>
